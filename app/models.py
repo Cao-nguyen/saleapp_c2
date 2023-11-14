@@ -1,6 +1,7 @@
 from sqlalchemy import Integer, Column, String, Float, VARCHAR, ForeignKey
 from sqlalchemy.orm import relationship
 from app import db, app
+from flask_login import UserMixin
 
 
 class Category(db.Model):
