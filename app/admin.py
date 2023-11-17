@@ -2,6 +2,8 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin import Admin, BaseView, expose
 from app import app, db
 from app.models import Product, Category
+from flask import redirect
+from flask_login import logout_user, current_user
 
 admin = Admin(app=app, name="Quan ly ban hang", template_mode="bootstrap4")
 
@@ -24,6 +26,17 @@ class StatsView(BaseView):
         return self.render('admin/statistics.html')
 
 
+class LogoutView(BaseView):
+    @expose('/')
+    def index(self):
+        logout_user()
+        return redirect('/admin')
+
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+
 admin.add_view(CategoryView(Category, db.session))
 admin.add_view(ProductView(Product, db.session))
 admin.add_view(StatsView(name="Thong ke"))
+admin.add_view(LogoutView(name="Dang Xuat"))
