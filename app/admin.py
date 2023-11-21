@@ -1,11 +1,21 @@
 from flask_admin.contrib.sqla import ModelView
 from flask_admin import Admin, BaseView, expose
 from app import app, db
-from app.models import Product, Category
+from app.models import Product, Category, UserRoleEnum
 from flask import redirect
 from flask_login import logout_user, current_user
 
 admin = Admin(app=app, name="Quan ly ban hang", template_mode="bootstrap4")
+
+
+class AuthenticatedAdmin(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRoleEnum.ADMIN
+
+
+class AuthenticatedUser(BaseView):
+    def is_accessible(self):
+        return current_user.is_authenticated
 
 
 class CategoryView(ModelView):
