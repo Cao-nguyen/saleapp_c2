@@ -1,5 +1,25 @@
 {% extends 'admin/master.html' %}
 
 {% block body %}
+{% if current_user.is_authenticated %}
 <h1 style="text-align: center; font-size: 40px">CHAO MUNG DEN VOI TRANG CHU ADMIN</h1>
+<h2 class="text-danger">Chao {{current_user.name}}</h2>
+{% else%}
+<form action="/admin/login" method="post">
+    <div class="mb-3 mt-3">
+        <label for="username" class="form-label">Ten dang nhap</label>
+        <input type="text" class="form-control" id="username" placeholder="Ten dang nhap" name="username">
+    </div>
+    <div class="mb-3">
+        <label for="pwd" class="form-label">Password:</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+    </div>
+<!--    <div class="form-check mb-3">-->
+<!--        <label class="form-check-label">-->
+<!--            <input class="form-check-input" type="checkbox" name="remember"> Remember me-->
+<!--        </label>-->
+<!--    </div>-->
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+{% endif%}
 {%endblock%}

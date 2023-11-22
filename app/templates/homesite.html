@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="products-container">
     {% for c in products%}
@@ -14,4 +15,21 @@
     </div>
     {% endfor %}
 </div>
+<nav class="nav-number-page" aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for i in range(page_number)%}
+        <li class="page-item"><a class="page-link" href="?page={{i+1}}">{{i+1}}</a></li>
+        {%endfor%}
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 {% endblock %}

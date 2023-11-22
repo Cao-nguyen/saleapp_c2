@@ -1,3 +1,4 @@
+import hashlib
 import math
 from flask import render_template, request, redirect, session, jsonify
 from app import app, login
@@ -10,54 +11,41 @@ from app.models import User
 def index():
     kw = request.args.get('kw')
     cate_id = request.args.get('cate_id')
-    page = request.args.get('page')
+    page = request.args.get('page')  # lay so trang
 
     cates = dao.load_categories()
-    products = dao.load_products(kw, cate_id)
+    products = dao.load_products(kw, cate_id, page)
 
-    return render_template("homesite.html", categories=cates, products=products)
+    pages = app.config["PAGE_SIZE"]
+    total_products = dao.get_count_products()
 
-
-@app.route("/admin_login", methods=["GET", "POST"])
-def admin_login():
-    if request.method == 'GET':
-        username = request.form.get("username")
-        password = request.form.get("password")
-        user = User.query.filter(username == username, password == password).first()
-        if user:
-            login_user(user=user)
-    return redirect("/admin")
+    page_number = int(math.ceil(total_products/pages))
+    return render_template("homesite.html", categories=cates, products=products, page_number=page_number)
 
 
-@app.route('/api/cart', methods=["POST"])
-def app_cart():
-    cart = session.get('cart')
-    if cart is None:
-        cart = {}
+@app.route("/admin/login", methods=['post'])
+def login_admin_process():
+    username = request.form.get('username')
+    password = request.form.get('password')
 
-    data = request.json
-    id = str(data.get("id"))
+    print(str(hashlib.md5(str(password).strip().encode('utf-8')).hexdigest()))
+    user = auth_user(username=username, password=password)
 
-    if id in cart:
-        cart[id]['quantity'] = cart[id]['quantity'] + 1
-    else:
-        cart[id] = {
-            "id": id,
-            "name": data.get("name"),
-            "price": data.get("price"),
-            "quantity": 1
-        }
-    session['cart'] = cart
+    if user:
+        login_user(user=user)
 
-    return jsonify({
-        "total_quantity": 10,
-        'total_price': 100
-    })
+    return redirect('/admin')
 
 
 @login.user_loader
-def get_user(user_id):
+def load_user(user_id):
     return dao.get_user_by_id(user_id)
+
+
+def auth_user(username, password):
+    username = str(username).strip()
+    password = str(hashlib.md5(str(password).strip().encode('utf-8')).hexdigest())
+    return User.query.filter(User.username.__eq__(username), User.password.__eq__(password)).first()
 
 
 if __name__ == "__main__":

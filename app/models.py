@@ -1,21 +1,25 @@
-from sqlalchemy import Integer, Column, String, Float, Boolean, ForeignKey
+from sqlalchemy import Integer, Column, String, Float, Boolean, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 from app import db, app
 from flask_login import UserMixin
 import enum
+from flask import url_for
 
 
-class UserRoleEnum(enum.Enum):
+class UserRole(enum.Enum):
     USER = 1
     ADMIN = 2
 
 
+# Usermixin -> xac dinh model dung de chung thuc (authenticated)
 class User(db.Model, UserMixin):
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(50), nullable=False)
     active = Column(Boolean, default=True)
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(50), nullable=False)
+    avatar = Column(String(50), default='./static/admin/image/default_useravt.jpg')
+    user_role = Column(Enum(UserRole), default=UserRole.USER)
 
     def __str__(self):
         return self.name
@@ -47,7 +51,10 @@ class Product(db.Model):
 #         db.create_all()
 #         import hashlib
 #
-#         u = User(name="Admin", username="admin", password=str(hashlib.md5('Admin@123'.encode('utf-8')).hexdigest()))
+#         u = User(name="Admin",
+#                  username="admin",
+#                  password=str(hashlib.md5('Admin@123'.encode('utf-8')).hexdigest()),
+#                  user_role=UserRole.ADMIN)
 #         db.session.add(u)
 #         db.session.commit()
 #         # c1 = Category(name="Mobile")

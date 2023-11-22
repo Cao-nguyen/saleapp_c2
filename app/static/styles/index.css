@@ -24,3 +24,27 @@
     bottom: 0px;
     margin-bottom: 20px;
 }
+
+a {
+    font-size:14px;
+    font-weight:700
+}
+.superNav {
+    font-size:13px;
+}
+.form-control {
+    outline:none !important;
+    box-shadow: none !important;
+}
+@media screen and (max-width:540px){
+.centerOnMobile {
+     text-align:center
+    }
+}
+.form-input{
+    display: flex;
+}
+
+.pagination {
+    justify-content: center;
+}
