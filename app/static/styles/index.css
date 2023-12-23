@@ -7,8 +7,15 @@
   margin: auto;
 }
 
+
+.navbar button{
+    color: #1977B4;
+}
+
+
 .card{
-    min-height: 550px
+    min-height: 550px;
+    max-width: 340px;
 }
 
 .card-img-top{
@@ -25,6 +32,27 @@
     margin-bottom: 20px;
 }
 
+.card div > h2 {
+    margin-bottom: 16px;
+}
+
+.buy-btn{
+    background-color: #ffc107;
+    border: none;
+    margin-top: 8px;
+    transition: all 0.5s;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #1977B4;
+    margin-top: 10px;
+}
+
+.buy-btn:hover{
+    background-color: #FFEFBC;
+    color: #000;
+}
 a {
     font-size:14px;
     font-weight:700

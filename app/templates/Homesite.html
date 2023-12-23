@@ -8,8 +8,9 @@
         <div class="card-body">
             <h5 class="card-title">{{c.name}}</h5>
             <p>Mô tả: {{c.description}}</p>
-            <div><h2>Price: {{c.price}}$</h2>
-                <button class="buy-btn">Buy Now</button>
+            <div>
+                <h2>Price: {{c.price}}$</h2>
+                <a href="#" onclick="addToCart( {{c.id}}, '{{c.name}}', {{c.price}} )" class="buy-btn">Buy Now</a>
             </div>
         </div>
     </div>
