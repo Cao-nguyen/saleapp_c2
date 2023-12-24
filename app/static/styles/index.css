@@ -7,11 +7,9 @@
   margin: auto;
 }
 
-
 .navbar button{
     color: #1977B4;
 }
-
 
 .card{
     min-height: 550px;
@@ -36,6 +34,10 @@
     margin-bottom: 16px;
 }
 
+.banner-img{
+    width: 100%;
+    max-height: 580px;
+}
 .buy-btn{
     background-color: #ffc107;
     border: none;
@@ -75,4 +77,156 @@ a {
 
 .pagination {
     justify-content: center;
+}
+
+/* CART DETAILS */
+.payment-info {
+  background: blue;
+  padding: 10px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.product-details {
+  padding: 10px;
+}
+
+body {
+  background: #eee;
+}
+
+.cart {
+  background: #fff;
+  margin-bottom: 50px;
+}
+
+.p-about {
+  font-size: 12px;
+}
+
+.table-shadow {
+  -webkit-box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.42);
+  box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.42);
+}
+
+.type {
+  font-weight: 400;
+  font-size: 10px;
+}
+
+label.radio {
+  cursor: pointer;
+}
+
+label.radio input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+label.radio span {
+  padding: 1px 12px;
+  border: 2px solid #ada9a9;
+  display: inline-block;
+  color: #8f37aa;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 300;
+}
+
+label.radio input:checked + span {
+  border-color: #fff;
+  background-color: blue;
+  color: #fff;
+}
+
+.credit-inputs {
+  background: rgb(102,102,221);
+  color: #fff !important;
+  border-color: rgb(102,102,221);
+}
+
+.credit-inputs::placeholder {
+  color: #fff;
+  font-size: 13px;
+}
+
+.credit-card-label {
+  font-size: 9px;
+  font-weight: 300;
+}
+
+.back-btn{
+    border: none;
+    background-color: #ffc107;
+    padding: 8px 18px;
+    border-radius: 6px;
+    transition: all 0.5s;
+    text-decoration: none;
+    color: #000;
+}
+
+.back-btn:hover{
+    background-color: #FFEFBC;
+    color: #000;
+}
+
+
+.form-control.credit-inputs:focus {
+  background: rgb(102,102,221);
+  border: rgb(102,102,221);
+}
+
+.line {
+  border-bottom: 1px solid rgb(102,102,221);
+}
+
+.information span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.information {
+  margin-bottom: 5px;
+}
+
+.items {
+  -webkit-box-shadow: 5px 5px 4px -1px rgba(0,0,0,0.25);
+  box-shadow: 5px 5px 4px -1px rgba(0, 0, 0, 0.08);
+}
+
+.spec {
+  font-size: 11px;
+}
+
+.row{
+    margin-bottom: 40px;
+}
+
+.img-div{
+    display: flex;
+    width: 240px;
+}
+
+.pro-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trash-btn{
+    margin-top: 4px;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+    color: #fff;
+}
+
+.trash-btn:hover{
+    background-color: orange;
 }

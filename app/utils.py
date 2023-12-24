@@ -10,3 +10,5 @@ def count_product(cart):
         "total_quantity": total_quantity,
         "total_price": total_price
     }
+
+

@@ -20,14 +20,8 @@ def index():
     pages = app.config["PAGE_SIZE"]
     total_products = dao.get_count_products()
 
-    cart_count = session['cart']
-    if cart_count is None:
-        cart_count = 0
-    else:
-        cart_count = utils.count_product(cart_count)
-
     page_number = int(math.ceil(total_products / pages))
-    return render_template("Homesite.html", cart_count=cart_count, categories=cates, products=products,
+    return render_template("Homesite.html", categories=cates, products=products,
                            page_number=page_number)
 
 
@@ -78,11 +72,50 @@ def add_cart():
             "id": product_id,
             "name": data.get("name"),
             "price": data.get("price"),
+            "image": data.get("image"),
             "quantity": 1
         }
 
     session['cart'] = cart
     return jsonify(utils.count_product(cart))
+
+
+@app.route('/api/cart/<product_id>', methods=['delete'])
+def remove_product(product_id):
+    cart = session.get('cart')
+    if cart and product_id in cart:
+        del cart[product_id]
+
+    session['cart'] = cart
+
+    return jsonify(utils.count_product(cart))
+
+
+@app.route('/api/cart/<product_id>', methods=['put'])
+def update_product(product_id):
+    cart = session['cart']
+    if cart and product_id in cart:
+        quantity = request.json.get("quantity")
+        cart[product_id]['quantity'] = int(quantity)
+
+    session['cart'] = cart
+    return jsonify({
+        "count_cart": utils.count_product(cart),
+        "quantity_update": cart[product_id]['quantity']
+    })
+
+
+@app.route('/cart')
+def cart_detail():
+    return render_template('Cart.html')
+
+
+@app.context_processor
+def common_resp():
+    return {
+        'categories': dao.load_categories(),
+        'cart': utils.count_product(session.get('cart'))
+    }
 
 
 if __name__ == "__main__":
